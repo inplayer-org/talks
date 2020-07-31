@@ -1,0 +1,85 @@
+# Database migrations
+2020-06-25
+Tags: migration 
+Summary: A talk regarding DB migrations.
+
+Filip Nikolovski
+filip.nikolovski@inplayer.com
+
+## DB Migrations 
+
+- New tool - [migrate](https://github.com/golang-migrate/migrate) for performing database migrations.
+
+- Each migration has an **up** and **down** part.
+
+- Migration file format:
+
+  ```
+  {timestamp}_{title}.up.sql
+  {timestamp}_{title}.down.sql
+  ```
+
+- **schema_migrations** table keeps the latest state of the migrations.
+
+  - **version** column corresponds to the *timestamp* part of the filename. 
+  - **dirty** column holds value for the result of the migration (success - 1, failure - 0) 
+
+## Local usage 
+
+- Before executing the `migrate` command, you'll need to manually **create** the schemas. There are two SQL files for creating/dropping schemas:
+
+  - `./migrations/schemas/create-schemas.sql`
+  - `./migrations/schemas/drop-schemas.sql`
+
+- **./scripts/migrate.sh** - convenience script which is a wrapper around migrate.
+
+- More info in the [README](https://repo.inplayer.com/platform/ingo/blob/master/README.md#database-migrations).
+
+## Strategy and principles
+
+- Difficulties around db migrations
+
+  - Uptime - Our services must operate 24/7
+  - Compatilibity - One table can be used in different services & consumers, every code needs to be backward and forward compatible
+
+- A **pattern** for migrations
+
+  1. **Dual writing** - keep old & new columns or tables in sync
+  2. **Change read paths** - read only from the new data
+  3. **Change write paths** - write only to the new column, table etc.
+  > ⚠️ After this step there is no rollback, make sure to test the steps thoroughly
+  4. **Remove old data**
+
+: Every single downtime is costing us and our clients money. Rather than relying on maintenance windows, we must do all upgrades online.
+
+## Implementation
+
+1. `touch $(date +%s)_foo_bar.{up,down}.sql`
+
+2. Update the two new files with the SQL queries
+
+  - The **up** file should contain the query that rolls forward the migration
+  - The **down** file should contain queries to revert or rollback the changes made by the up file
+
+3. Test up - ./scripts/migrate.sh -u root -p mobydick -d \<database\> up
+
+4. Test down - ./scripts/migrate.sh -u root -p mobydick -d \<database\> -n 1 down
+
+> ⚠️ If you execute down without steps (-n 1) it will run **ALL** rollbacks, so be careful. Always include -n [1, 2, 3...] where N is the number of steps to go back
+
+3. Push the changes & make a **Merge Request**
+
+## Implementation
+
+4. Merge the changes & wait for the pipeline to succeed
+
+5. Communicate with ops:
+    - Which database?
+    - What is the migration file timestamp?
+
+6. Ops writes down the previous latest version (timestamp)
+
+7. Run **tasks/cmd/migrations/migrate**
+
+8. _(Optional)_ In case the migration affects legacy PHP code, we need to
+  clear the cache using doctrine.
