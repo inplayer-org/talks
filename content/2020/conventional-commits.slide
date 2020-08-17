@@ -1,0 +1,70 @@
+# Conventional commits
+2020-08-17
+Tags: commits, git 
+Summary: A talk about writing good commit messages in a conventional way.
+
+Filip Nikolovski
+filip.nikolovski@inplayer.com
+
+## Commit messages
+
+- What constitutes a good commit message?
+  - **Style:** punctuation, grammar, capitalization, etc.
+  - **Content:** what and why vs. how.
+  - **Metadata:** Story card ids, references. 
+
+- Be consistent, do not cut corners.
+
+- **git commit -m** - for single line commits
+- **git commit** - for multiple lines title and subject (opens an editor)
+- **git commit --amend** - change the message on the last commit
+- Read more at:
+  - [https://ohshitgit.com/](https://ohshitgit.com/)
+  - [https://chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
+
+## Conventional commits
+
+- A set of rules on top of the good commits convention
+  1. fix:
+  2. feat:
+  3. chore:
+  4. BREAKING CHANGE:
+  5. Other elements such as: ci:, refactor:, test:, docs: etc.
+
+- As addition to this we can provide a scope to a commit's **type** e.g. `feat(subscriptions/subscription): added retry message functionality` 
+
+- An automated way to handle git history and changelog
+
+- Read more at: [https://www.conventionalcommits.org/en/v1.0.0/](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## Structure of a commit
+
+```
+<type>(optional scope): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+## An example
+
+```
+feat(some scope): summarize changes in the title and keep it short
+
+Explain the problem that this commit is solving. Focus on why you
+are making this change as opposed to how (the code explains that).
+Are there side effects or other unintuitive consequences of this
+change?
+
+Further paragraphs come after blank lines.
+
+ - Bullet points are okay, too
+
+ - Typically a hyphen or asterisk is used for the bullet, preceded
+   by a single space, with blank lines in between, but conventions
+   vary here
+
+Resolves: [ch123]
+See also: [ch456], [ch789]
+```
