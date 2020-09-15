@@ -1,5 +1,6 @@
-FROM golang:1.15-buster
+FROM golang:1.15-alpine
 
+RUN apk --no-cache add gcc g++ make git ca-certificates
 RUN go get golang.org/x/tools/cmd/present
 
 COPY ./content /app/content
