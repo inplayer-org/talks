@@ -1,0 +1,7 @@
+version: '2'
+services:
+  present:
+    image: inplayer/slides
+    restart: always
+    environment:
+      - VIRTUAL_HOST=localhost
