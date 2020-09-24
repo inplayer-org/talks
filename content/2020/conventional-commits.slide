@@ -8,6 +8,13 @@ filip.nikolovski@inplayer.com
 
 ## Commit messages
 
+- Why do good commit messages matter ?
+  - Good commit messages imply good commits
+  - Best way to communicate context about a change to fellow developers
+  - A diff will tell you _what_ changed, but a good message will tell you _why_
+
+## Commit messages
+
 - What constitutes a good commit message?
   - **Style:** punctuation, grammar, capitalization, etc.
   - **Content:** what and why vs. how.
@@ -39,32 +46,17 @@ filip.nikolovski@inplayer.com
 
 ## Structure of a commit
 
-```
-<type>(optional scope): <description>
+.code conventional-commits/commit-structure.txt
 
-[optional body]
+- The first line of a commit message serves as a summary
+  - Aim for about 50 characters
+  - Write in imperative tense: "Fix bug" instead of "Fixed bug"
 
-[optional footer(s)]
-```
+- When the subject is not sufficient, add a blank line followed by
+  one or more paragraphs describing why we made that change
+
+- Additionally the footer should include the metadata such as reference links etc.
 
 ## An example
 
-```
-feat(some scope): summarize changes in the title and keep it short
-
-Explain the problem that this commit is solving. Focus on why you
-are making this change as opposed to how (the code explains that).
-Are there side effects or other unintuitive consequences of this
-change?
-
-Further paragraphs come after blank lines.
-
- - Bullet points are okay, too
-
- - Typically a hyphen or asterisk is used for the bullet, preceded
-   by a single space, with blank lines in between, but conventions
-   vary here
-
-Resolves: [ch123]
-See also: [ch456], [ch789]
-```
+.code conventional-commits/example.txt
