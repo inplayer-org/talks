@@ -25,6 +25,7 @@ filip.nikolovski@inplayer.com
 - **git commit -m** - for single line commits
 - **git commit** - for multiple lines title and subject (opens an editor)
 - **git commit --amend** - change the message on the last commit
+
 - Read more at:
   - [https://ohshitgit.com/](https://ohshitgit.com/)
   - [https://chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
