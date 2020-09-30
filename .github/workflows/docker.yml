@@ -1,5 +1,8 @@
 name: Docker build & push
-on: [push]
+
+on:
+  push:
+    branches: master
 
 jobs:
   main:
