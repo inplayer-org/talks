@@ -33,8 +33,8 @@ filip.nikolovski@inplayer.com
 ## Conventional commits
 
 - A set of rules on top of the good commits convention
-  1. fix:
-  2. feat:
+  1. feat:
+  2. fix:
   3. chore:
   4. BREAKING CHANGE:
   5. Other elements such as: ci:, refactor:, test:, docs: etc.
