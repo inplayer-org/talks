@@ -54,7 +54,7 @@ filip.nikolovski@inplayer.com
   - Write in imperative tense: "Fix bug" instead of "Fixed bug"
 
 - When the subject is not sufficient, add a blank line followed by
-  one or more paragraphs describing why we made that change
+  one or more paragraphs describing why we made that change.
 
 - Additionally the footer should include the metadata such as reference links etc.
 
